@@ -112,4 +112,20 @@ class UsersController extends Controller
                             ->paginate(30);
         return view('users.show',compact('user','statuses'));
     }
+    
+    public function followings($id)
+    {
+        $user = User::findOrFail($id);
+        $users = $user->followings()->paginate(30);
+        $title = '关注的人';
+        return view('users.show_follow', compact('users', 'title'));
+    }
+
+    public function followers($id)
+    {
+        $user = User::findOrFail($id);
+        $users = $user->followers()->paginate(30);
+        $title = '粉丝';
+        return view('users.show_follow', compact('users', 'title'));
+    }
 }
